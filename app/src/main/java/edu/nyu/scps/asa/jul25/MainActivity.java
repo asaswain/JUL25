@@ -196,8 +196,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-                cursor.close();
-
                 ListView listView = (ListView) findViewById(R.id.listView);
                 listView.setAdapter(adapter);
             } else {
