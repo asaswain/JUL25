@@ -157,18 +157,18 @@ public class MainActivity extends AppCompatActivity {
 
             if ((columnName != null)) {
 
-                    if (selectBy.equals("Continent")) {
-                        select = "select _id, Continent as Name , avg(" + columnName + ")*100 as Value from newcountry group by Continent";
-                    }
+                if (selectBy.equals("Continent")) {
+                    select = "select _id, Continent as Name , avg(" + columnName + ")*100 as Value from newcountry group by Continent";
+                }
 
-                    if (selectBy.equals("Country")) {
-                        select = "select _id, Name as Name, " + columnName + "*100 as Value from newcountry order by Code";
-                    }
+                if (selectBy.equals("Country")) {
+                    select = "select _id, Name as Name, " + columnName + "*100 as Value from newcountry order by Code";
+                }
 
-                    if (selectBy.equals("Language")) {
-                        select = "select newcountrylanguage._id, Language as Name , avg(" + columnName + ")*100 as Value from newcountry " +
-                                "inner join newcountrylanguage on newcountry.Code = newcountrylanguage.CountryCode group by Language";
-                    }
+                if (selectBy.equals("Language")) {
+                    select = "select newcountrylanguage._id, Language as Name , avg(" + columnName + ")*100 as Value from newcountry " +
+                            "inner join newcountrylanguage on newcountry.Code = newcountrylanguage.CountryCode group by Language";
+                }
             }
 
             if (select != null) {
@@ -185,11 +185,11 @@ public class MainActivity extends AppCompatActivity {
 
                 adapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
                     public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-                        if(!selectType.equals("Population") && (columnIndex == 2)) {
+                        if(columnIndex == 2) {
                             TextView text = (TextView) view;  // get your View
-                            double amount = cursor.getDouble(2)/100;
-
-                            text.setText(String.valueOf(amount));  //set some data
+                            // format amount to 2 decimal places
+                            String formattedAmount = String.format("%.2f", cursor.getDouble(2)/100);
+                            text.setText(formattedAmount);  //set some data
                             return true;
                         }
                         return false;
